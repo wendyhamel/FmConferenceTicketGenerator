@@ -6,6 +6,8 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
 
+  <script defer src="./src/ticketGenerator.js"></script>
+
   <!-- Alpine Plugins -->
   <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
   <!-- Alpine Core -->
@@ -16,40 +18,75 @@
   <title>Frontend Mentor | Conference ticket generator</title>
 
 </head>
-<body>
-<main class="bg-neutral-700 text-neutral-0">
-  <section>
-    <form action="">
+<body x-data="getTicket()" >
+<main class="">
+  <section x-show="!submitted">
+    <form method="post">
       <h2>Your Journey to Coding Conf 2025 Starts Here!</h2>
 
       <p>Secure your spot at next year's biggest coding conference.</p>
 
-      <label for="Upload Avatar">
-        <span>Upload Avatar</span>
-        <input type="file" id="Upload Avatar" name="Upload Avatar">
-      <span>Drag and drop or click to upload</span>
-      <span>Upload your photo (JPG or PNG, max size: 500KB).</span>
-      </label>
+      <div>
+        <label for="Upload Avatar">
+          <span>Upload Avatar</span>
+          <input type="file" id="Upload Avatar" name="Upload Avatar">
+          <span>Drag and drop or click to upload</span>
+          <span>Upload your photo (JPG or PNG, max size: 500KB).</span>
+        </label>
+      </div>
+      <div>
+        <label for="fullName">
+          <span>Full Name</span>
+          <input
+              x-model="fullName"
+              x-on:input="validate('fullName')"
+              x-on:blur="validate('fullName')"
+              aria-label="fullName"
+              id="fullName"
+              name="fullName"
+              type="text"
+              required
+          >
+        </label>
+      </div>
 
-      <label for="Full name">
-        <span>Full Name</span>
-      <input type="text" id="Full name" name="Full Name">
-      </label>
+      <div>
+        <label for="email">
+          <span>Email Address</span>
+          <input
+              x-model="email"
+              x-on:input="validate('email')"
+              x-on:blur="validate('email')"
+              aria-label="email"
+              id="email"
+              name="email"
+              placeholder="example@email.com"
+              type="text"
+          >
+        </label>
+        <p x-show="validation.email.invalid" x-text="validation.email.message" class="text-orange-700 text-xs"></p>
+      </div>
 
-      <label for="Email Address">
-        <span>Email Address</span>
-        <input type="text" id="Email Address" name="Email Address" placeholder="example@email.com">
-      </label>
-
-      <label for="GitHub Username">
-        <span>Email Address</span>
-        <input type="text" id="GitHub Username" name="GitHub Username" placeholder="@yourusername">
-      </label>
+      <div>
+        <label for="GHUsername">
+          <span>Github Username</span>
+          <input
+              x-model="GHUsername"
+              x-on:input="validate('GHUsername')"
+              x-on:blur="validate('GHUsername')"
+              aria-label="GHUsername"
+              type="text"
+              id="GHUsername"
+              name="GHUsername"
+              placeholder="@yourusername"
+          >
+        </label>
+      </div>
 
       <button type="submit">Generate My Ticket</button>
     </form>
   </section>
-  <section>
+  <section x-show="submitted">
 
     <h2></h2>
     Congrats, <span>Full Name</span>! Your ticket is ready.
