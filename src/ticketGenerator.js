@@ -1,7 +1,6 @@
 window.getTicket = function() {
 	return {
-		submitted: false,
-		fullname: '',
+		fullName: '',
 		email: '',
 		GHUsername: '',
 		requestEarlyAccess: {},
@@ -14,7 +13,7 @@ window.getTicket = function() {
 						} else {
 							return {invalid: true, message: 'Full name is required'}
 						}
-					},
+					}
 				}
 			},
 			email: {
@@ -45,9 +44,19 @@ window.getTicket = function() {
 							return {invalid: true, message: 'Github Username is required'}
 						}
 					},
+					githubName: function (field) {
+						const validGithubNameRegex = /^@[a-zA-Z0-9-]/g
+						if (validGithubNameRegex.test(field)) {
+							return {invalid: false, message: ''}
+						} else {
+							return {invalid: true, message: 'Please enter a valid github name'}
+						}
+					}
+
 				}
 			},
 		},
+		submitted: false,
 		validate(field) {
 			for (const key in this.validation[field].rule) {
 				const validationResult = this.validation[field].rule[key](this[field])

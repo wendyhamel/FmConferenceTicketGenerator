@@ -46,8 +46,10 @@
               name="fullName"
               type="text"
               required
+              class="bg-neutral-500/10"
           >
         </label>
+        <p x-show="validation.fullName.invalid" x-text="validation.fullName.message" class="text-orange-700 text-xs"></p>
       </div>
 
       <div>
@@ -62,6 +64,8 @@
               name="email"
               placeholder="example@email.com"
               type="text"
+              required
+              class="bg-neutral-500/10"
           >
         </label>
         <p x-show="validation.email.invalid" x-text="validation.email.message" class="text-orange-700 text-xs"></p>
@@ -79,11 +83,14 @@
               id="GHUsername"
               name="GHUsername"
               placeholder="@yourusername"
+              required
+              class="bg-neutral-500/10"
           >
         </label>
+        <p x-show="validation.GHUsername.invalid" x-text="validation.GHUsername.message" class="text-orange-700 text-xs"></p>
       </div>
 
-      <button type="submit">Generate My Ticket</button>
+      <button x-on:click="submit()" type="button">Generate My Ticket</button>
     </form>
   </section>
   <section x-show="submitted">
