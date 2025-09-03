@@ -18,21 +18,46 @@
   <title>Frontend Mentor | Conference ticket generator</title>
 
 </head>
-<body x-data="getTicket()" >
-<main class="">
-  <section x-show="!submitted">
+<body x-data="getTicket()">
+<main class="relative min-h-dvh overflow-hidden">
+  <section class="absolute inset-0 bg-neutral-900">
+    <picture>
+      <source srcset="./assets/images/background-desktop.png 640w, ./assets/images/background-tablet.png 1200w" sizes="(min-width: 640px) 640px, 1200px">
+      <img class="absolute object-cover bottom-0" src="./assets/images/background-mobile.png" alt="" aria-hidden="true">
+    </picture>
+    <img class="absolute top-0 inset-x-0" src="./assets/images/pattern-lines.svg" alt="">
+    <img class="absolute inset-50" src="./assets/images/pattern-circle.svg" alt="">
+    <img class="absolute top-0 right-0" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
+    <picture>
+      <source srcset="./assets/images/pattern-squiggly-line-bottom-desktop.svg" media="(min-width: 640px)">
+      <img class="absolute bottom-0 left-0" src="./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg" alt="" aria-hidden="true">
+    </picture>
+  </section>
+  <section class="relative max-w-screen-xl mx-auto text-neutral-0" x-show="!submitted">
+    <img class="mx-auto" src="./assets/images/logo-full.svg" alt="">
     <form method="post">
-      <h2>Your Journey to Coding Conf 2025 Starts Here!</h2>
+      <h2 class="text-5xl font-bold ">Your Journey to Coding Conf 2025 Starts Here!</h2>
 
       <p>Secure your spot at next year's biggest coding conference.</p>
 
       <div>
-        <label for="Upload Avatar">
+        <label for="upload_avatar">
           <span>Upload Avatar</span>
-          <input type="file" id="Upload Avatar" name="Upload Avatar">
+          <input
+              x-model="avatar"
+              x-on:input.cancel="validate('avatar')"
+              x-on:input.blur="validate('avatar')"
+              aria-label="fullName"
+              type="file"
+              required
+              accept=".png, .jpg, .jpeg"
+              id="upload_avatar"
+              name="Upload Avatar"
+          >
           <span>Drag and drop or click to upload</span>
           <span>Upload your photo (JPG or PNG, max size: 500KB).</span>
         </label>
+        <p x-show="validation.avatar.invalid" x-text="validation.avatar.message" class="text-orange-700 text-xs"></p>
       </div>
       <div>
         <label for="fullName">
@@ -96,9 +121,9 @@
   <section x-show="submitted">
 
     <h2></h2>
-    Congrats, <span>Full Name</span>! Your ticket is ready.
+    Congrats, <span x-text="fullName"></span>! Your ticket is ready.
     <p>
-      We've emailed your ticket to <span>[Email address]</span> and will send updates in the run up to the event.
+      We've emailed your ticket to <span x-text="email"></span> and will send updates in the run up to the event.
     </p>
 
     <p>Coding Conf</p>
@@ -107,7 +132,7 @@
 
   </section>
 </main>
-<footer class="fixed bottom-0 inset-x-0 text-center text-sm p-2 bg-flo-navy-800/90 opacity-0 translate-y-6 hover:opacity-100 hover:translate-y-0 focus-within:opacity-100 focus-within:translate-y-0 transform transition ease-in-out duration-300">
+<footer class="fixed bottom-0 inset-x-0 text-center text-sm p-2 bg-neutral-700/80 opacity-0 translate-y-6 hover:opacity-100 hover:translate-y-0 focus-within:opacity-100 focus-within:translate-y-0 transform transition ease-in-out duration-300">
   Challenge by <a class="rounded-xs hover:text-orange-700 hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-700" href="https://www.frontendmentor.io/challenges/conference-ticket-generator-oq5gFIU12w" target="_blank">Frontend Mentor</a>.
   Coded by <a class="rounded-xs hover:text-orange-700 hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-700" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
 </footer>

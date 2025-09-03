@@ -5,6 +5,34 @@ window.getTicket = function() {
 		GHUsername: '',
 		requestEarlyAccess: {},
 		validation: {
+			avatar: {
+				rule: {
+					// fileSize: function (field) {
+					// 	const fileSelected = field.files[0];
+					// 	const validFileSize = fileSelected.size <= 500000;
+					// 	if (validFileSize.test(field)) {
+					// 		return {invalid: false, message: ''}
+					// 	} else {
+					// 		return {invalid: true, message: 'File is too large. Please upload a photo under 500kb'}
+					// 	}
+					// },
+					// fileType: function (field) {
+					// 	const validExtensions = /(\.JPG|\.PNG|\.jpeg)$/g
+					// 	if (validExtensions.test(field)) {
+					// 		return {invalid: false, message: ''}
+					// 	} else {
+					// 		return {invalid: true, message: 'Wrong file type. Please upload a JPG or PNG file'}
+					// 	}
+					// },
+					required: function (field) {
+						if (field) {
+							return {invalid: false, message: ''}
+						} else {
+							return {invalid: true, message: 'Avatar is required'}
+						}
+					}
+				}
+			},
 			fullName: {
 				rule: {
 					required: function (field) {
@@ -45,7 +73,7 @@ window.getTicket = function() {
 						}
 					},
 					githubName: function (field) {
-						const validGithubNameRegex = /^@[a-zA-Z0-9-]/g
+						const validGithubNameRegex = /^@[a-zA-Z0-9-]$/g
 						if (validGithubNameRegex.test(field)) {
 							return {invalid: false, message: ''}
 						} else {
@@ -83,9 +111,6 @@ window.getTicket = function() {
 					email: this.email,
 					GHUsername: this.GHUsername
 				}
-				this.fullName = ''
-				this.email = ''
-				this.GHUsername = ''
 				this.submitted = true
 			}
 		}
