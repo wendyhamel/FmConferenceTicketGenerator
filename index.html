@@ -22,41 +22,52 @@
 <main class="relative min-h-dvh overflow-hidden">
   <section class="absolute inset-0 bg-neutral-900">
     <picture>
-      <source srcset="./assets/images/background-desktop.png 640w, ./assets/images/background-tablet.png 1200w" sizes="(min-width: 640px) 640px, 1200px">
-      <img class="absolute object-cover bottom-0" src="./assets/images/background-mobile.png" alt="" aria-hidden="true">
+      <source srcset="./assets/images/background-desktop.png" media="(min-width: 1024px)">
+      <source srcset="./assets/images/background-tablet.png" media="(min-width: 768px)">
+      <source srcset="./assets/images/background-mobile.png" media="(max-width: 767px)">
+      <img class="absolute object-cover bottom-0" src="./assets/images/background-desktop.png" alt="" aria-hidden="true">
     </picture>
     <img class="absolute top-0 inset-x-0" src="./assets/images/pattern-lines.svg" alt="">
-    <img class="absolute inset-50" src="./assets/images/pattern-circle.svg" alt="">
+    <img class="absolute right-1/5 inset-y-2/5" src="./assets/images/pattern-circle.svg" alt="">
     <img class="absolute top-0 right-0" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
     <picture>
       <source srcset="./assets/images/pattern-squiggly-line-bottom-desktop.svg" media="(min-width: 640px)">
       <img class="absolute bottom-0 left-0" src="./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg" alt="" aria-hidden="true">
     </picture>
   </section>
-  <section class="relative max-w-screen-xl mx-auto text-neutral-0" x-show="!submitted">
-    <img class="mx-auto" src="./assets/images/logo-full.svg" alt="">
-    <form method="post">
-      <h2 class="text-5xl font-bold ">Your Journey to Coding Conf 2025 Starts Here!</h2>
-
-      <p>Secure your spot at next year's biggest coding conference.</p>
-
+  <section class="relative max-w-screen-md pt-8 px-4 mx-auto text-neutral-0" x-show="!submitted">
+    <img class="mx-auto mb-12" src="./assets/images/logo-full.svg" alt="">
+    <h2 class="text-5xl/14 font-bold text-center">Your Journey to Coding Conf 2025 Starts Here!</h2>
+    <p class="text-neutral-300 text-[1.2rem] text-center mt-6">Secure your spot at next year's biggest coding conference.</p>
+    <form class="mt-12 mx-auto max-w-sm" method="post">
       <div>
-        <label for="upload_avatar">
-          <span>Upload Avatar</span>
-          <input
-              x-model="avatar"
-              x-on:input.cancel="validate('avatar')"
-              x-on:input.blur="validate('avatar')"
-              aria-label="fullName"
-              type="file"
-              required
-              accept=".png, .jpg, .jpeg"
-              id="upload_avatar"
-              name="Upload Avatar"
-          >
-          <span>Drag and drop or click to upload</span>
-          <span>Upload your photo (JPG or PNG, max size: 500KB).</span>
-        </label>
+        <div class="col-span-full">
+          <label for="upload_avatar" class="relative cursor-pointer block text-sm/6 font-medium text-neutral-0">Upload Avatar</label>
+          <div class="my-2 flex justify-center rounded-xl border-2 border-dashed border-neutral-300/25 bg-neutral-300/5 px-6 py-10">
+            <div class="text-center">
+              <span class="bg-neutral-300/10 rounded-lg ring-1 ring-inset ring-neutral-300/25 block mx-auto p-2 grid place-content-center">
+                <img src="./assets/images/icon-upload.svg" alt="" class="size-12">
+              </span>
+              <div class="mt-4 flex text-sm/6 text-gray-600 dark:text-gray-400">
+                  <input
+                      x-model="avatar"
+                      x-on:input.cancel="validate('avatar')"
+                      x-on:input.blur="validate('avatar')"
+                      aria-label="fullName"
+                      type="file"
+                      required
+                      accept=".png, .jpg, .jpeg"
+                      id="upload_avatar"
+                      name="Upload Avatar"
+                      class="sr-only"
+                  />
+                <p class="pl-1">Drag and drop or click to upload</p>
+              </div>
+            </div>
+          </div>
+          <p class="inline-flex items-center gap-2 text-neutral-300 text-xs"><span><img src="./assets/images/icon-info.svg" alt=""></span>Upload your photo (JPG or PNG, max size: 500KB).</p>
+        </div>
+
         <p x-show="validation.avatar.invalid" x-text="validation.avatar.message" class="text-orange-700 text-xs"></p>
       </div>
       <div>
