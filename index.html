@@ -19,36 +19,35 @@
 
 </head>
 <body x-data="getTicket()">
-<main class="relative min-h-dvh overflow-hidden">
-  <section class="absolute inset-0 bg-neutral-900">
+<main class="relative min-h-dvh">
+  <section class="absolute inset-0 bg-neutral-900 overflow-hidden">
     <picture>
       <source srcset="./assets/images/background-desktop.png" media="(min-width: 1024px)">
       <source srcset="./assets/images/background-tablet.png" media="(min-width: 768px)">
       <source srcset="./assets/images/background-mobile.png" media="(max-width: 767px)">
       <img class="absolute object-cover bottom-0" src="./assets/images/background-desktop.png" alt="" aria-hidden="true">
     </picture>
-    <img class="absolute top-0 inset-x-0" src="./assets/images/pattern-lines.svg" alt="">
-    <img class="absolute right-1/5 inset-y-2/5" src="./assets/images/pattern-circle.svg" alt="">
-    <img class="absolute top-0 right-0" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
+    <img class="absolute top-0 min-w-[950px]" src="./assets/images/pattern-lines.svg" alt="">
+    <img class="absolute hidden right-1/5 inset-y-2/5" src="./assets/images/pattern-circle.svg" alt="">
+    <img class="absolute top-6 right-0 w-24" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
     <picture>
       <source srcset="./assets/images/pattern-squiggly-line-bottom-desktop.svg" media="(min-width: 640px)">
       <img class="absolute bottom-0 left-0" src="./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg" alt="" aria-hidden="true">
     </picture>
   </section>
-  <section class="relative max-w-screen-md pt-8 px-4 mx-auto text-neutral-0" x-show="!submitted">
+  <section class="relative max-w-screen-md pt-8 pb-30 px-4 mx-auto text-neutral-0" x-show="!submitted">
     <img class="mx-auto mb-12" src="./assets/images/logo-full.svg" alt="">
-    <h2 class="text-5xl/14 font-bold text-center">Your Journey to Coding Conf 2025 Starts Here!</h2>
-    <p class="text-neutral-300 text-[1.2rem] text-center mt-6">Secure your spot at next year's biggest coding conference.</p>
-    <form class="mt-12 mx-auto max-w-sm" method="post">
+    <h2 class="font-bold text-center text-[1.75rem]/7.5 md:text-5xl/14">Your Journey to Coding Conf 2025 Starts Here!</h2>
+    <p class="text-neutral-300 text-center mt-6 text-lg/5.5 md:text-[1.2rem]">Secure your spot at next year's biggest coding conference.</p>
+    <form class="grid gap-y-4 mt-12 grid gap-y-4 mx-auto max-w-sm pb-4" method="post">
       <div>
         <div class="col-span-full">
-          <label for="upload_avatar" class="relative cursor-pointer block text-sm/6 font-medium text-neutral-0">Upload Avatar</label>
-          <div class="my-2 flex justify-center rounded-xl border-2 border-dashed border-neutral-300/25 bg-neutral-300/5 px-6 py-10">
-            <div class="text-center">
-              <span class="bg-neutral-300/10 rounded-lg ring-1 ring-inset ring-neutral-300/25 block mx-auto p-2 grid place-content-center">
+          <label for="upload_avatar" class="relative cursor-pointer block font-medium text-neutral-300 text-lg md:text-sm/6 ">Upload Avatar</label>
+          <div class="relative my-2 flex justify-center rounded-xl border-2 border-dashed border-neutral-300/40 bg-neutral-300/5 px-6 py-10">
+            <div class="text-center grid gap-y-2">
+              <div class="bg-neutral-300/10 rounded-lg ring-1 ring-inset ring-neutral-300/10 mx-auto p-2 grid place-content-center">
                 <img src="./assets/images/icon-upload.svg" alt="" class="size-12">
-              </span>
-              <div class="mt-4 flex text-sm/6 text-gray-600 dark:text-gray-400">
+              </div>
                   <input
                       x-model="avatar"
                       x-on:input.cancel="validate('avatar')"
@@ -59,20 +58,19 @@
                       accept=".png, .jpg, .jpeg"
                       id="upload_avatar"
                       name="Upload Avatar"
-                      class="sr-only"
+                      class="absolute inset-0 bg-orange-700/20 opacity-0"
                   />
-                <p class="pl-1">Drag and drop or click to upload</p>
+                <p class="pl-1 text-neutral-500">Drag and drop or click to upload</p>
               </div>
-            </div>
           </div>
-          <p class="inline-flex items-center gap-2 text-neutral-300 text-xs"><span><img src="./assets/images/icon-info.svg" alt=""></span>Upload your photo (JPG or PNG, max size: 500KB).</p>
+          <p class="inline-flex items-center gap-2 text-neutral-500 text-xs"><span><img src="./assets/images/icon-info.svg" alt=""></span>Upload your photo (JPG or PNG, max size: 500KB).</p>
         </div>
 
         <p x-show="validation.avatar.invalid" x-text="validation.avatar.message" class="text-orange-700 text-xs"></p>
       </div>
       <div>
-        <label for="fullName">
-          <span>Full Name</span>
+        <label for="fullName" class="grid gap-y-1">
+          <span class="text-neutral-300 text-lg ">Full Name</span>
           <input
               x-model="fullName"
               x-on:input="validate('fullName')"
@@ -82,15 +80,15 @@
               name="fullName"
               type="text"
               required
-              class="bg-neutral-500/10"
+              class="border-2 border-neutral-300/40 rounded-lg bg-neutral-300/5 p-1"
           >
         </label>
         <p x-show="validation.fullName.invalid" x-text="validation.fullName.message" class="text-orange-700 text-xs"></p>
       </div>
 
       <div>
-        <label for="email">
-          <span>Email Address</span>
+        <label for="email" class="grid gap-y-1">
+          <span class="text-neutral-300 text-lg ">Email Address</span>
           <input
               x-model="email"
               x-on:input="validate('email')"
@@ -101,15 +99,15 @@
               placeholder="example@email.com"
               type="text"
               required
-              class="bg-neutral-500/10"
+              class="border-2 border-neutral-300/40 rounded-lg bg-neutral-300/5 p-1"
           >
         </label>
         <p x-show="validation.email.invalid" x-text="validation.email.message" class="text-orange-700 text-xs"></p>
       </div>
 
       <div>
-        <label for="GHUsername">
-          <span>Github Username</span>
+        <label for="GHUsername" class="grid gap-y-1">
+          <span class="text-neutral-300 text-lg ">Github Username</span>
           <input
               x-model="GHUsername"
               x-on:input="validate('GHUsername')"
@@ -120,13 +118,13 @@
               name="GHUsername"
               placeholder="@yourusername"
               required
-              class="bg-neutral-500/10"
+              class="border-2 border-neutral-300/40 rounded-lg bg-neutral-300/5 p-1"
           >
         </label>
         <p x-show="validation.GHUsername.invalid" x-text="validation.GHUsername.message" class="text-orange-700 text-xs"></p>
       </div>
 
-      <button x-on:click="submit()" type="button">Generate My Ticket</button>
+      <button x-on:click="submit()" type="button" class="rounded-lg text-center px-4 py-2 bg-orange-500 font-bold text-neutral-900">Generate My Ticket</button>
     </form>
   </section>
   <section x-show="submitted">
