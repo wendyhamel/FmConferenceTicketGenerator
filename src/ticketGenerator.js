@@ -1,5 +1,6 @@
 window.getTicket = function() {
 	return {
+		avatar: '',
 		fullName: '',
 		email: '',
 		GHUsername: '',
@@ -7,6 +8,14 @@ window.getTicket = function() {
 		validation: {
 			avatar: {
 				rule: {
+					required: function (field) {
+						const fileSelected = field.files[0];
+						if (field) {
+							return {invalid: false, message: ''}
+						} else {
+							return {invalid: true, message: 'Avatar is required'}
+						}
+					},
 					// fileSize: function (field) {
 					// 	const fileSelected = field.files[0];
 					// 	const validFileSize = fileSelected.size <= 500000;
@@ -17,6 +26,7 @@ window.getTicket = function() {
 					// 	}
 					// },
 					// fileType: function (field) {
+					// 	const fileSelected = field.files[0];
 					// 	const validExtensions = /(\.JPG|\.PNG|\.jpeg)$/g
 					// 	if (validExtensions.test(field)) {
 					// 		return {invalid: false, message: ''}
@@ -24,13 +34,6 @@ window.getTicket = function() {
 					// 		return {invalid: true, message: 'Wrong file type. Please upload a JPG or PNG file'}
 					// 	}
 					// },
-					required: function (field) {
-						if (field) {
-							return {invalid: false, message: ''}
-						} else {
-							return {invalid: true, message: 'Avatar is required'}
-						}
-					}
 				}
 			},
 			fullName: {
@@ -73,7 +76,7 @@ window.getTicket = function() {
 						}
 					},
 					githubName: function (field) {
-						const validGithubNameRegex = /^@[a-zA-Z0-9-]$/g
+						const validGithubNameRegex = /^@[a-zA-Z0-9-]+$/g
 						if (validGithubNameRegex.test(field)) {
 							return {invalid: false, message: ''}
 						} else {
@@ -98,15 +101,18 @@ window.getTicket = function() {
 			}
 		},
 		submit() {
+			// this.validate('avatar')
 			this.validate('fullName')
 			this.validate('email')
 			this.validate('GHUsername')
 			if (
+				// this.validation['avatar'].invalid === false &&
 				this.validation['fullName'].invalid === false &&
 				this.validation['email'].invalid === false &&
 				this.validation['GHUsername'].invalid === false
 			) {
 				this.requestEarlyAccess = {
+					avatar: this.avatar,
 					fullName: this.fullName,
 					email: this.email,
 					GHUsername: this.GHUsername

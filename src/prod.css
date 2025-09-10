@@ -13,4 +13,7 @@
 	--color-orange-700: hsl(7, 71%, 60%);
 	--color-gradient-text-from: hsl(7, 86%, 67%);
 	--color-gradient-text-to: hsl(0, 0%, 100%);
+
+
+	--text-2lg: 1.2rem;
 }
