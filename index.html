@@ -13,13 +13,13 @@
   <!-- Alpine Core -->
   <script defer src="https://unpkg.com/alpinejs@latest/dist/cdn.min.js"></script>
 
-  <link rel="stylesheet" href="./src/main.css">
+  <link rel="stylesheet" href="./src/prod.css">
 
   <title>Frontend Mentor | Conference ticket generator</title>
 
 </head>
 <body x-data="getTicket()">
-<main class="relative min-h-dvh">
+<main class="relative min-h-dvh font-mono">
   <section class="absolute inset-0 bg-neutral-900 overflow-hidden">
     <picture>
       <source srcset="./assets/images/background-desktop.png" media="(min-width: 1024px)">
@@ -28,8 +28,8 @@
       <img class="absolute object-cover bottom-0" src="./assets/images/background-desktop.png" alt="" aria-hidden="true">
     </picture>
     <img class="absolute top-0 min-w-[950px]" src="./assets/images/pattern-lines.svg" alt="">
-    <img class="absolute hidden right-1/5 inset-y-2/5" src="./assets/images/pattern-circle.svg" alt="">
-    <img class="absolute top-8 right-0 w-28" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
+    <img x-show="submitted" class="absolute h-28 -right-14 top-2/3 md:right-1/5 md:inset-y-2/5" src="./assets/images/pattern-circle.svg" alt="">
+    <img class="absolute top-8 right-0 max-w-28 md:max-w-full" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
     <picture>
       <source srcset="./assets/images/pattern-squiggly-line-bottom-desktop.svg" media="(min-width: 640px)">
       <img class="absolute bottom-0 left-0" src="./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg" alt="" aria-hidden="true">
@@ -125,17 +125,43 @@
       <button x-on:click="submit()" type="button" class="rounded-xl text-center px-4 py-2 bg-orange-500 font-bold text-neutral-900">Generate My Ticket</button>
     </form>
   </section>
-  <section x-show="submitted">
+  <section class="relative max-w-screen-md pt-11 pb-30 px-4 mx-auto text-neutral-0" x-show="submitted">
+	  <img class="mx-auto w-42 mb-11" src="./assets/images/logo-full.svg" alt="">
+	  <h2 class="font-bold text-center text-[1.75rem]/8 md:text-5xl/14">
+		  Congrats, <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-white">Jonatan Kristof</span>! Your ticket is ready.
+	  </h2>
 
-    <h2></h2>
-    Congrats, <span x-text="fullName"></span>! Your ticket is ready.
-    <p>
-      We've emailed your ticket to <span x-text="email"></span> and will send updates in the run up to the event.
-    </p>
+	  <p class="text-neutral-300/80 text-center mt-5 text-2lg/6 mb-20">
+		  We've emailed your ticket to <span class="text-orange-500" >jonatan@email.com</span> and will send updates in the run up to the event.
+	  </p>
 
-    <p>Coding Conf</p>
+	  <div class="relative mx-2">
+		  <img class="absolute w-full" src="./assets/images/pattern-ticket.svg" aria-hidden="true" alt="">
 
-    <p>Jan 31, 2025 / Austin, TX</p>
+		  <div class="relative grid px-4 py-5 gap-y-3">
+			  <div class="flex items-start gap-x-2">
+				  <img class="rounded w-8" src="./assets/images/logo-mark.svg" alt="">
+				  <div>
+					  <p class="text-2xl font-medium leading-none mb-2">Coding Conf</p>
+					  <p class="text-sm text-neutral-500">Jan 31, 2025 / Austin, TX</p>
+				  </div>
+			  </div>
+
+			  <div class="flex items-start gap-x-2 mt-2">
+				  <img class="rounded-lg w-12" src="./assets/images/image-avatar.jpg" :alt="fullName">
+				  <div>
+					  <p class="text-lg">Jonatan Kristof</p>
+					  <div class="flex items-center gap-x-1 text-sm text-neutral-500">
+						  <img class="w-4" src="./assets/images/icon-github.svg" alt="">
+						  <p>@jonatankristof0101</p>
+					  </div>
+				  </div>
+			  </div>
+			  <div class="absolute right-0 inset-y-1/2 transform rotate-90 translate-x-3">
+				  <p class="text-xl text-neutral-500">#01609</p>
+			  </div>
+		  </div>
+	  </div>
 
   </section>
 </main>

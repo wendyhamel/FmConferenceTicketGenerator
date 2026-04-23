@@ -5,6 +5,7 @@ window.getTicket = function() {
 		email: '',
 		GHUsername: '',
 		requestEarlyAccess: {},
+		submitted: true,
 		validation: {
 			avatar: {
 				rule: {
@@ -87,7 +88,6 @@ window.getTicket = function() {
 				}
 			},
 		},
-		submitted: false,
 		validate(field) {
 			for (const key in this.validation[field].rule) {
 				const validationResult = this.validation[field].rule[key](this[field])
