@@ -28,7 +28,7 @@
       <img class="absolute object-cover bottom-0" src="./assets/images/background-desktop.png" alt="" aria-hidden="true">
     </picture>
     <img class="absolute top-0 min-w-[950px] lg:-mt-[8%] xl:-mt-[16%]" src="./assets/images/pattern-lines.svg" alt="">
-    <img x-show="submitted" class="absolute h-28 -right-14 top-2/3 md:right-1/5 md:inset-y-2/5" src="./assets/images/pattern-circle.svg" alt="">
+    <img class="absolute h-28 -right-14 top-2/3 md:right-1/5 md:inset-y-2/5 md:h-64" src="./assets/images/pattern-circle.svg" alt="">
     <img class="absolute top-8 right-0 max-w-28 lg:max-w-78" src="./assets/images/pattern-squiggly-line-top.svg" alt="">
     <picture>
       <source srcset="./assets/images/pattern-squiggly-line-bottom-desktop.svg" media="(min-width: 640px)">
@@ -45,25 +45,33 @@
           <label for="upload_avatar" class="relative cursor-pointer block font-medium text-neutral-300 text-2lg md:text-sm/6 ">Upload Avatar</label>
           <div class="relative my-2 flex justify-center rounded-xl border-2 border-dashed border-neutral-300/40 bg-neutral-300/10 px-2 py-4">
             <div class="text-center grid gap-y-2">
-              <div class="bg-neutral-300/10 rounded-lg ring-1 ring-inset ring-neutral-300/10 mx-auto p-2 grid place-content-center">
+              <div x-show="!avatarPreview" class="bg-neutral-300/10 rounded-lg ring-1 ring-inset ring-neutral-300/10 mx-auto p-2 grid place-content-center">
                 <img src="./assets/images/icon-upload.svg" alt="" class="size-8">
               </div>
-                  <input
-                      x-model="avatar"
-                      aria-label="fullName"
-                      type="file"
-                      required
-                      accept=".png, .jpg, .jpeg"
-                      id="upload_avatar"
-                      name="Upload Avatar"
-                      class="absolute inset-0 bg-orange-700/20 opacity-0"
-                  />
-                <p class="pt-2 text-neutral-300/90 text-lg">Drag and drop or click to upload</p>
+              <div x-show="avatarPreview" class="mx-auto">
+                <img :src="avatarPreview" alt="Avatar preview" class="size-12 rounded-lg ring-2 ring-neutral-300/40 object-cover">
               </div>
+              <input
+	              x-show="!avatarPreview"
+                  x-ref="fileInput"
+                  x-on:change="handleFileSelect($event)"
+                  aria-label="avatar upload"
+                  type="file"
+                  required
+                  accept=".png, .jpg, .jpeg"
+                  id="upload_avatar"
+                  name="Upload Avatar"
+                  class="absolute inset-0 bg-orange-700/20 opacity-0"
+              />
+              <p x-show="!avatarPreview" class="pt-2 text-neutral-300/90 text-lg">Drag and drop or click to upload</p>
+              <div x-show="avatarPreview" class="py-2 space-x-2">
+                <button x-on:click="removeAvatar()" type="button" class="rounded bg-white/10 text-neutral-300 px-2 py-1 text-sm hover:underline decoration-neutral-300/30 decoration-2 underline-offset-3 transition-colors">Remove image</button>
+                <button x-on:click="$refs.fileInput.click()" type="button" class="rounded bg-white/10 text-neutral-300 px-2 py-1 text-sm hover:underline decoration-neutral-300/30 decoration-2 underline-offset-3 transition-colors">Change image</button>
+              </div>
+            </div>
           </div>
           <p class="inline-flex items-center gap-2 text-neutral-500 text-xs"><span><img src="./assets/images/icon-info.svg" alt=""></span>Upload your photo (JPG or PNG, max size: 500KB).</p>
         </div>
-
         <p x-show="validation.avatar.invalid" x-text="validation.avatar.message" class="text-orange-700 text-xs"></p>
       </div>
       <div>
@@ -128,11 +136,11 @@
   <section class="relative max-w-screen-md pt-11 pb-30 px-4 mx-auto text-neutral-0" x-show="submitted">
 	  <img class="mx-auto w-42 mb-11" src="./assets/images/logo-full.svg" alt="">
 	  <h2 class="font-bold text-center text-[1.75rem]/8 md:text-5xl/14">
-		  Congrats, <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-white">Jonatan Kristof</span>! </br class="hidden md:block"> Your ticket is ready.
+		  Congrats, <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-white" x-text="requestEarlyAccess.fullName"></span>! </br class="hidden md:block"> Your ticket is ready.
 	  </h2>
 
 	  <p class="text-neutral-300/80 text-center mt-5 text-2lg/6 mb-20 max-w-md mx-auto sm:px-4">
-		  We've emailed your ticket to <span class="text-orange-500" >jonatan@email.com</span> and will send updates in the run up to the event.
+		  We've emailed your ticket to <span class="text-orange-500" x-text="requestEarlyAccess.email"></span> and will send updates in the run up to the event.
 	  </p>
 
 	  <div class="relative mx-2 max-w-md mx-auto">
@@ -148,12 +156,12 @@
 			  </div>
 
 			  <div class="flex items-start gap-x-2 mt-2 md:gap-x-4">
-				  <img class="rounded-lg w-12 md:w-14" src="./assets/images/image-avatar.jpg" :alt="fullName">
+				  <img class="rounded-lg w-12 md:w-14 object-cover" :src="requestEarlyAccess.avatarPreview || './assets/images/image-avatar.jpg'" :alt="requestEarlyAccess.fullName">
 				  <div>
-					  <p class="text-lg md:text-2xl md:tracking-[0.075em]">Jonatan Kristof</p>
+					  <p class="text-lg md:text-2xl md:tracking-[0.075em]" x-text="requestEarlyAccess.fullName"></p>
 					  <div class="flex items-center gap-x-1 text-sm text-neutral-300/90 md:gap-x-2">
 						  <img class="w-4" src="./assets/images/icon-github.svg" alt="">
-						  <p>@jonatankristof0101</p>
+						  <p x-text="requestEarlyAccess.GHUsername"></p>
 					  </div>
 				  </div>
 			  </div>
